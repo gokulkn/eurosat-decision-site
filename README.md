@@ -1,6 +1,6 @@
 # eurosat-decision-site
 
-Static results page for the [eurosat-decision](https://github.com/<USERNAME>/eurosat-decision) repository — replace `<USERNAME>` with your GitHub username.
+Static results page for the [eurosat-decision](https://github.com/gokulkn/eurosat-decision) repository.
 
 A benchmark result on EuroSAT only (RGB, 10 classes, 64×64 Sentinel-2 patches): fine-tuned torchvision ResNet-18 with a softmax-confidence abstention layer.
 
@@ -24,4 +24,4 @@ A benchmark result on EuroSAT only (RGB, 10 classes, 64×64 Sentinel-2 patches):
 
 ## Deploy
 
-On Vercel: sign in with GitHub, import this repo (`eurosat-decision-site`), deploy with defaults (no build command, output directory `.`). Then replace `<USERNAME>` in `index.html`, commit, and push again so the repo link is live.
+On Vercel: sign in with GitHub, import this repo (`eurosat-decision-site`), deploy with defaults (no build command, output directory `.`). The repo link in index.html is already set; commit and push again after any edits.
