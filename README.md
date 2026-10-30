@@ -22,6 +22,11 @@ A benchmark result on EuroSAT only (RGB, 10 classes, 64×64 Sentinel-2 patches):
 - Not field imagery; single seed 42; no confidence interval.
 - Own fixed stratified 70/15/15 split, not a published benchmark split.
 
+## Live demo
+
+Browser demo of the committed EuroSAT decision model (ResNet-18 with abstention layer):
+https://eurosat-decision-tool.vercel.app
+
 ## Deploy
 
 On Vercel: sign in with GitHub, import this repo (`eurosat-decision-site`), deploy with defaults (no build command, output directory `.`). The repo link in index.html is already set; commit and push again after any edits.
