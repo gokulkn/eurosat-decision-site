@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EuroSAT Decision — Benchmark Results</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; color: #1a1a1a; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 1.6rem; margin-bottom: 8px; }
+  h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 8px; }
+  p { margin: 0 0 16px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 24px; }
+  th, td { border: 1px solid #d0d0d0; padding: 8px 10px; text-align: left; font-size: 0.95rem; }
+  th { background: #f4f4f4; font-weight: 600; }
+  .note { font-size: 0.9rem; color: #444; }
+  .placeholder { color: #b00020; font-weight: 600; }
+  a { color: #0b5ed7; }
+  ul { margin: 8px 0 16px 20px; }
+  code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.9em; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>EuroSAT Decision — Benchmark Results</h1>
+<p>
+  Fine-tuned <code>torchvision</code> ResNet-18 (ImageNet-pretrained, final layer replaced for the 10 EuroSAT classes)
+  on RGB 64×64 Sentinel-2 patches, with a softmax-confidence abstention layer. Results below are a benchmark on
+  <strong>EuroSAT only</strong> — not field imagery — from a single run with seed 42. All numbers are copied from
+  <code>reports/TEST_RESULTS.md</code> and <code>reports/test_results.json</code> in the companion repository.
+</p>
+
+<h2>Test results (evaluated exactly once)</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+  <tr>
+    <td>Overall test accuracy (the only unbiased figure)</td>
+    <td>0.9627 (3,899 / 4,050) <!-- source: reports/TEST_RESULTS.md line 21; reports/test_results.json line 43 overall_accuracy --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>Validation accuracy (validation-selected, not unbiased)</td>
+    <td>0.9679 <!-- source: reports/TEST_RESULTS.md line 5; reports/CHECKPOINT2.md line 56 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>SeaLake (water) precision</td>
+    <td>0.9912 <!-- source: reports/TEST_RESULTS.md line 42; reports/test_results.json lines 113-115 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>SeaLake (water) recall</td>
+    <td>0.9956 <!-- source: reports/TEST_RESULTS.md line 42; reports/test_results.json lines 113-116 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>SeaLake (water) support</td>
+    <td>450 <!-- source: reports/TEST_RESULTS.md line 42; reports/test_results.json line 118 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+</table>
+
+<h2>Abstention layer (frozen threshold chosen on validation only)</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+  <tr>
+    <td>Frozen confidence threshold</td>
+    <td>0.50 <!-- source: reports/TEST_RESULTS.md line 25; reports/test_results.json line 44 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>Coverage at threshold</td>
+    <td>0.9938 (4,025 / 4,050 cells answered) <!-- source: reports/TEST_RESULTS.md line 26; reports/test_results.json lines 45-47 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>Accuracy on answered cells</td>
+    <td>0.9650 <!-- source: reports/TEST_RESULTS.md line 27; reports/test_results.json line 46 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+  <tr>
+    <td>Cells abstained</td>
+    <td>25 <!-- source: reports/TEST_RESULTS.md line 28; reports/test_results.json line 48 --></td>
+    <td>reports/TEST_RESULTS.md</td>
+  </tr>
+</table>
+
+<h2>Scope and limitations</h2>
+<ul>
+  <li>Benchmark on <strong>EuroSAT only</strong>; no accuracy is claimed on any other imagery.</li>
+  <li>64×64 Sentinel-2 patches at 10 m resolution — not field imagery.</li>
+  <li>Single run with one seed (<code>42</code>); no confidence interval computed.</li>
+  <li>Split is our own fixed stratified 70/15/15 train/validation/test split (18,900 / 4,050 / 4,050), not a published benchmark split.</li>
+  <li>torch 2.15.0+cpu, torchvision 0.29.2+cpu; CPU training.</li>
+</ul>
+
+<h2>Repository</h2>
+<p>
+  Companion repository (code, weights, splits, reports):
+  <a href="https://github.com/<USERNAME>/eurosat-decision">https://github.com/<USERNAME>/eurosat-decision</a>
+  <span class="placeholder">— replace <USERNAME> with your GitHub username</span>
+</p>
+<p class="note">This is a small reproducibility benchmark on EuroSAT only; it is not a broad claim about aerial scene classification generally.</p>
+
+</body>
+</html>
